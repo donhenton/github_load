@@ -1,0 +1,48 @@
+{
+    "properties": {
+	"avatar": {
+	    "type": "text" 
+	},
+	"created": {
+	    "type": "date",
+	    "format": "date_time_no_millis"
+	},
+	"description": {
+	    "type": "text"
+	},
+	"forks": {
+	    "type": "integer"
+	},
+	"fullname": {
+	    "type": "text"
+	},
+	"language": {
+	    "type": "text"
+	},
+	"name": {
+	    "type": "text"
+	},
+	"owner": {
+	    "type": "text"
+	},
+	"pushed": {
+	    "type": "date",
+	    "format": "date_time_no_millis"
+	},
+	"size": {
+	    "type": "integer"
+	},
+	"stars": {
+	    "type": "integer"
+	},
+	"topics": {
+	    "type": "text"
+	},
+	"url": {
+	    "type": "text"
+	},
+	"watchers": {
+	    "type": "integer"
+	}
+    }
+}

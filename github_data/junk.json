@@ -1,0 +1,19 @@
+{
+    "properties":
+	    {
+		"avatar": {
+		    "type": "string",
+		    "fields": {
+			"autosuggest": {
+			    "type": "string",
+			    "analyzer": "autosuggest_analyzer"
+			},
+			"raw": {
+			    "type": "string",
+			    "index": "not_analyzed"
+			}
+		    },
+		    "analyzer": "standard"
+		}
+	    }
+}

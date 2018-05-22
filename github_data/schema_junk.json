@@ -1,0 +1,154 @@
+{
+    "avatar": {
+        "type": "string",
+        "fields": {
+            "autosuggest": {
+                "type": "string",
+                "analyzer": "autosuggest_analyzer"
+            },
+            "raw": {
+                "type": "string",
+                "index": "not_analyzed"
+            }
+        },
+        "analyzer": "standard"
+    },
+    "created": {
+        "type": "date",
+        "format": "date_time_no_millis"
+    },
+    "description": {
+        "type": "string",
+        "fields": {
+            "autosuggest": {
+                "type": "string",
+                "analyzer": "autosuggest_analyzer"
+            },
+            "raw": {
+                "type": "string",
+                "index": "not_analyzed"
+            },
+            "search": {
+                "type": "string",
+                "analyzer": "ngram_analyzer"
+            }
+        },
+        "analyzer": "standard"
+    },
+    "forks": {
+        "type": "integer"
+    },
+    "fullname": {
+        "type": "string",
+        "fields": {
+            "autosuggest": {
+                "type": "string",
+                "analyzer": "autosuggest_analyzer"
+            },
+            "raw": {
+                "type": "string",
+                "index": "not_analyzed"
+            }
+        },
+        "analyzer": "standard"
+    },
+    "language": {
+        "type": "string",
+        "fields": {
+            "autosuggest": {
+                "type": "string",
+                "analyzer": "autosuggest_analyzer"
+            },
+            "raw": {
+                "type": "string",
+                "index": "not_analyzed"
+            },
+            "search": {
+                "type": "string",
+                "analyzer": "ngram_analyzer"
+            }
+        },
+        "analyzer": "standard"
+    },
+    "name": {
+        "type": "string",
+        "fields": {
+            "autosuggest": {
+                "type": "string",
+                "analyzer": "autosuggest_analyzer"
+            },
+            "raw": {
+                "type": "string",
+                "index": "not_analyzed"
+            },
+            "search": {
+                "type": "string",
+                "analyzer": "ngram_analyzer"
+            }
+        },
+        "analyzer": "standard"
+    },
+    "owner": {
+        "type": "string",
+        "fields": {
+            "autosuggest": {
+                "type": "string",
+                "analyzer": "autosuggest_analyzer"
+            },
+            "raw": {
+                "type": "string",
+                "index": "not_analyzed"
+            },
+            "search": {
+                "type": "string",
+                "analyzer": "ngram_analyzer"
+            }
+        },
+        "analyzer": "standard"
+    },
+    "pushed": {
+        "type": "date",
+        "format": "date_time_no_millis"
+    },
+    "size": {
+        "type": "integer"
+    },
+    "stars": {
+        "type": "integer"
+    },
+    "topics": {
+        "type": "string",
+        "fields": {
+            "autosuggest": {
+                "type": "string",
+                "analyzer": "autosuggest_analyzer"
+            },
+            "raw": {
+                "type": "string",
+                "index": "not_analyzed"
+            },
+            "search": {
+                "type": "string",
+                "analyzer": "ngram_analyzer"
+            }
+        },
+        "analyzer": "standard"
+    },
+    "url": {
+        "type": "string",
+        "fields": {
+            "autosuggest": {
+                "type": "string",
+                "analyzer": "autosuggest_analyzer"
+            },
+            "raw": {
+                "type": "string",
+                "index": "not_analyzed"
+            }
+        },
+        "analyzer": "standard"
+    },
+    "watchers": {
+        "type": "integer"
+    }
+}

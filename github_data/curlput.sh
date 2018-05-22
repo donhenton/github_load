@@ -1,0 +1,1 @@
+curl -XPUT "http://localhost:9200/github/_mapping/type" -d "@schema_load.json"  -H 'Content-Type: application/json'
