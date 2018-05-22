@@ -9,8 +9,8 @@
 	},
 	"tokenizer": {
 	    "path-tokenizer": {
-		"type": "path_hierarchy",
-		"delimiter": "/"
+		"type": "pattern",
+		"pattern": "/"
 	    }
 	}
     }
