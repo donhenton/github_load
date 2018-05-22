@@ -39,7 +39,13 @@
 	    "type": "text"
 	},
 	"url": {
-	    "type": "text"
+	    "type": "text",
+	    "fields": {
+		"token": {
+		    "type": "text",
+		    "analyzer": "path-analyzer"
+		} 
+	    } 
 	},
 	"watchers": {
 	    "type": "integer"

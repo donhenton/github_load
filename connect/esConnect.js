@@ -29,10 +29,24 @@ async function resetIndex(index) {
   await client.indices.create({index})
 }
 
+async function createSettings(index,settingsSchema) {
+ 
+  return client.indices.putSettings({index,  body: settingsSchema})
+}
+
+async function closeIndex(index ) {
+ return client.indices.close({index})
+}
+
+async function openIndex(index ) {
+ return client.indices.open({index})
+}
+
 async function createMapping(index, type, schema) {
   return client.indices.putMapping({index, type, body: schema})
 }
 
 module.exports = {
-  checkConnection, resetIndex, createMapping, client
+  checkConnection, resetIndex, createMapping, client, createSettings, 
+  closeIndex, openIndex
 }

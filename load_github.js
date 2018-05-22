@@ -1,6 +1,7 @@
 const esConnection = require('./connect/esConnect');
 const data = require('./github_data/data');
 const schema = require('./github_data/schema_load');
+const settingsSchema = require('./github_data/settingsSchema');
 const index = 'github';
 const type = 'entry';
 
@@ -10,6 +11,9 @@ async function mainLoad() {
   try {
     // Clear previous ES index
     await esConnection.resetIndex(index);
+    await esConnection.closeIndex(index);
+    await esConnection.createSettings(index, settingsSchema);
+    await esConnection.openIndex(index);
     await esConnection.createMapping(index, type, schema);
 
     let dataLimit = data.length;
