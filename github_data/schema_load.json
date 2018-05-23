@@ -8,7 +8,22 @@
 	    "format": "date_time_no_millis"
 	},
 	"description": {
-	    "type": "text"
+	    "type": "text",
+	    "fields": {
+		"keywordstring": {
+		    "type": "text",
+		    "analyzer": "keyword_analyzer"
+		},
+		"edgengram": {
+		    "type": "text",
+		    "analyzer": "edge_ngram_analyzer",
+		    "search_analyzer": "edge_ngram_search_analyzer"
+		},
+		"completion": {
+		    "type": "completion"
+		}
+	    },
+	    "analyzer": "standard"
 	},
 	"forks": {
 	    "type": "integer"
