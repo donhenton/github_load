@@ -126,149 +126,469 @@
 			]
 		},
 		{
-			"name": "demo query",
-			"request": {
-				"method": "POST",
-				"header": [
-					{
-						"key": "Content-Type",
-						"value": "application/json"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n  \"query\" : {\n    \"match_phrase\": {\"author\": \"Charles Dickens\"}\n  \n  }\n\n}"
+			"name": "queries",
+			"description": "",
+			"item": [
+				{
+					"name": "demo query library",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"query\" : {\n    \"match_phrase\": {\"author\": \"Charles Dickens\"}\n  \n  }\n\n}"
+						},
+						"url": {
+							"raw": "http://localhost:9200/library/_search",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9200",
+							"path": [
+								"library",
+								"_search"
+							]
+						}
+					},
+					"response": []
 				},
-				"url": {
-					"raw": "http://localhost:9200/library/_search",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "9200",
-					"path": [
-						"library",
-						"_search"
-					]
+				{
+					"name": "demo query github",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"query\" : {\n    \"match_all\": {}\n  \n  }\n\n}"
+						},
+						"url": {
+							"raw": "http://localhost:9200/github/_search",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9200",
+							"path": [
+								"github",
+								"_search"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "description highlight",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"query\" : {\n    \"bool\": {\n    \t\"must\": [\n    \t\t{\"match\": { \t\"description\": \"track\"  } \t} \t ,\n            {\"match\": {          \"language\": \"java\"  }  }\n         ]\n    }\n  \n  },\n  \"_source\": [\"description\",\"url\"],\n  \"highlight\": {\n  \t\"pre_tags\" : [\"<div class='highlight'>\"],\n        \"post_tags\" : [\"</div>\"],\n  \t\"fields\": { \"description\":{}} \n  \t\n  \t\t\n  \t\t\n  \t}\n\n}"
+						},
+						"url": {
+							"raw": "http://localhost:9200/github/_search",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9200",
+							"path": [
+								"github",
+								"_search"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "regex query",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"query\" : {\n     \"regexp\": {\n     \t\"text\":  {\"value\": \"tres.*\"}\n     }\n  \n  },\n  \"_source\": [\"text\",\"title\",\"author\"],\n  \"highlight\": {\n  \t\"pre_tags\" : [\"<div class='highlight'>\"],\n        \"post_tags\" : [\"</div>\"],\n  \t\"fields\": { \"text\":{}} \n  \t\n  \t\t\n  \t\t\n  \t}\n\n}"
+						},
+						"url": {
+							"raw": "http://localhost:9200/library/_search",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9200",
+							"path": [
+								"library",
+								"_search"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "author suggest query",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": " {\n  \"suggest\": {\n    \"card-suggest\": {\n      \"prefix\": \"Char\",\n      \"completion\": {\n        \"field\": \"author.suggest\"\n      }\n    }\n  }\n}"
+						},
+						"url": {
+							"raw": "http://localhost:9200/card_catalog/index_card/_search",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9200",
+							"path": [
+								"card_catalog",
+								"index_card",
+								"_search"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "title suggest query",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": " {\n  \"suggest\": {\n    \"card-suggest\": {\n      \"prefix\": \"The\",\n      \"completion\": {\n        \"field\": \"title.suggest\"\n      }\n    }\n  }\n}"
+						},
+						"url": {
+							"raw": "http://localhost:9200/card_catalog/index_card/_search",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9200",
+							"path": [
+								"card_catalog",
+								"index_card",
+								"_search"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "url path analyzer query",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n \"query\": {\n   \n   \"match_phrase\": {\n     \"url.token\": \"zulip\"\n   }\n  \n   }\n}"
+						},
+						"url": {
+							"raw": "http://localhost:9200/github/entry/_search",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9200",
+							"path": [
+								"github",
+								"entry",
+								"_search"
+							]
+						},
+						"description": "a demonstration of the github url path analyzer"
+					},
+					"response": []
+				},
+				{
+					"name": "lucene get query",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "\n{\n    \"query\": {\n        \"multi_match\" : {\n            \"query\" : \"java\",\n            \"fields\" : [\"_all\"]\n        }\n    }\n}"
+						},
+						"url": {
+							"raw": "http://localhost:9200/github/_search?q=language:java",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9200",
+							"path": [
+								"github",
+								"_search"
+							],
+							"query": [
+								{
+									"key": "q",
+									"value": "language:java"
+								}
+							]
+						},
+						"description": "lucene query in the querystring"
+					},
+					"response": []
 				}
-			},
-			"response": []
+			]
 		},
 		{
-			"name": "url path analyzer query",
-			"request": {
-				"method": "POST",
-				"header": [
-					{
-						"key": "Content-Type",
-						"value": "application/json"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n \"query\": {\n   \n   \"match_phrase\": {\n     \"url.token\": \"zulip\"\n   }\n  \n   }\n}"
+			"name": "github -typeahead",
+			"description": "",
+			"item": [
+				{
+					"name": "keywordstring prefix typeahead",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"query\": {\n    \"prefix\": {\n      \"description.keywordstring\": \"boil\"\n    }\n  },\n  \"_source\": [\"description\",\"url\"],\n  \"highlight\": {\n  \t\"pre_tags\" : [\"<div class='highlight'>\"],\n        \"post_tags\" : [\"</div>\"],\n  \t\"fields\": { \"description\":{}\n  \t} \n  \t\n  }\n}"
+						},
+						"url": {
+							"raw": "http://localhost:9200/github/_search",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9200",
+							"path": [
+								"github",
+								"_search"
+							]
+						}
+					},
+					"response": []
 				},
-				"url": {
-					"raw": "http://localhost:9200/_search",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "9200",
-					"path": [
-						"_search"
-					]
+				{
+					"name": "ngram typeahead",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"query\": {\n    \"match\": {\n      \"description.edgengram\": \"responsive boil\"\n    }\n  },\n  \"_source\": [\"description\",\"url\"],\n  \"highlight\": {\n  \t\"pre_tags\" : [\"<div class='highlight'>\"],\n        \"post_tags\" : [\"</div>\"],\n  \t\"fields\": { \"description\":{}\n  \t} \n  \t\n  }\n}"
+						},
+						"url": {
+							"raw": "http://localhost:9200/github/_search",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9200",
+							"path": [
+								"github",
+								"_search"
+							]
+						}
+					},
+					"response": []
 				},
-				"description": "a demonstration of the github url path analyzer"
-			},
-			"response": []
+				{
+					"name": "completion typeahead",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"suggest\": {\n        \"github-suggest\" : {\n            \"prefix\" : \"Server\", \n            \"completion\" : { \n                \"field\" : \"description.completion\"\n            }\n        }\n    }\n}"
+						},
+						"url": {
+							"raw": "http://localhost:9200/github/_search",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9200",
+							"path": [
+								"github",
+								"_search"
+							]
+						}
+					},
+					"response": []
+				}
+			]
 		},
 		{
-			"name": "sample data",
-			"request": {
-				"method": "POST",
-				"header": [
-					{
-						"key": "Content-Type",
-						"value": "application/json"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": ""
+			"name": "app queries",
+			"description": "",
+			"item": [
+				{
+					"name": "Topics Match Query",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"query\" : {\n    \n    \t\"match\": { \t\"topics\": \"testing\"  } \n    }\n  \n\n  \n}\n"
+						},
+						"url": {
+							"raw": "http://localhost:9200/github/_search",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9200",
+							"path": [
+								"github",
+								"_search"
+							]
+						}
+					},
+					"response": []
 				},
-				"url": {
-					"raw": "http://localhost:9200/library/_search",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "9200",
-					"path": [
-						"library",
-						"_search"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "regex query",
-			"request": {
-				"method": "POST",
-				"header": [
-					{
-						"key": "Content-Type",
-						"value": "application/json"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n    \"query\": {\n        \"regexp\":{\n            \"author\": \"Cha*\"\n        }\n    }\n}"
+				{
+					"name": "Date Range Query with sizing",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"from\":0, \"size\":20,\n     \"query\": {\n        \"range\" : {\n            \"created\" : {\n                \"gte\": \"01/01/2012\",\n                \"lte\": \"2013\",\n                \"format\": \"dd/MM/yyyy||yyyy\"\n            }\n        }\n    }\n\n  \n}\n"
+						},
+						"url": {
+							"raw": "http://localhost:9200/github/_search",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9200",
+							"path": [
+								"github",
+								"_search"
+							]
+						},
+						"description": "the format string parses the dates in the query "
+					},
+					"response": []
 				},
-				"url": {
-					"raw": "http://localhost:9200/card_catalog/_search",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "9200",
-					"path": [
-						"card_catalog",
-						"_search"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "author term search",
-			"request": {
-				"method": "POST",
-				"header": [
-					{
-						"key": "Content-Type",
-						"value": "application/json"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n  \"query\" : {\n    \"match\": {\"author.text\": \"Arthur Conan\"}\n  \n  }\n\n}"
+				{
+					"name": "Topics Terms Query",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"query\" : {\n    \n    \t\"terms\": { \t\"topics\": [\"testing\",\"java\"]  } \n    }\n  \n\n  \n}\n"
+						},
+						"url": {
+							"raw": "http://localhost:9200/github/_search",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9200",
+							"path": [
+								"github",
+								"_search"
+							]
+						}
+					},
+					"response": []
 				},
-				"url": {
-					"raw": "http://localhost:9200/library/_search",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "9200",
-					"path": [
-						"library",
-						"_search"
-					]
+				{
+					"name": "all unique Topics/Languages",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n   \"size\":0,\n   \"aggs\" : {\n      \"unique_topics\" : {\n      \t\"terms\": {\"field\":\"topics.keyword\",\"size\":20}\n      },\n      \"unique_lang\" : {\n      \t\"terms\": {\"field\":\"language.keyword\",\"size\":20}\n      }\n   \t\t\n   }\n  \n\n  \n}\n"
+						},
+						"url": {
+							"raw": "http://localhost:9200/github/_search",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9200",
+							"path": [
+								"github",
+								"_search"
+							]
+						}
+					},
+					"response": []
 				}
-			},
-			"response": []
+			]
 		}
 	]
 }
