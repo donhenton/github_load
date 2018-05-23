@@ -1,0 +1,274 @@
+{
+	"info": {
+		"_postman_id": "6670bdba-9e90-4482-bd3c-1b0cb921fe3c",
+		"name": "elastic",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "meta",
+			"description": "",
+			"item": [
+				{
+					"name": "github mappings",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "",
+								"disabled": true
+							}
+						],
+						"body": {},
+						"url": {
+							"raw": "http://localhost:9200/github/_mappings",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9200",
+							"path": [
+								"github",
+								"_mappings"
+							]
+						},
+						"description": "get the mappings for an endpoint, mappings are the schema of the data. The url field uses a custom path analyzer. Its definition can be see with the _settings call"
+					},
+					"response": []
+				},
+				{
+					"name": "library mappings",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "",
+								"disabled": true
+							}
+						],
+						"body": {},
+						"url": {
+							"raw": "http://localhost:9200/library/_mappings",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9200",
+							"path": [
+								"library",
+								"_mappings"
+							]
+						},
+						"description": "get the mappings for an endpoint, mappings are the schema of the data. The url field uses a custom path analyzer. Its definition can be see with the _settings call"
+					},
+					"response": []
+				},
+				{
+					"name": "settings",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "",
+								"disabled": true
+							}
+						],
+						"body": {},
+						"url": {
+							"raw": "http://localhost:9200/github/_settings",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9200",
+							"path": [
+								"github",
+								"_settings"
+							]
+						},
+						"description": "Meta data about the index"
+					},
+					"response": []
+				},
+				{
+					"name": "analyze demo",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"analyzer\": \"path-analyzer\",\n  \"text\": \"https://github.com/fred/ted\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:9200/github/_analyze",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9200",
+							"path": [
+								"github",
+								"_analyze"
+							]
+						},
+						"description": "The github index contains an analyzer which will split a string on '/'. The analyze endpoint processes sample strings"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "demo query",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"query\" : {\n    \"match_phrase\": {\"author\": \"Charles Dickens\"}\n  \n  }\n\n}"
+				},
+				"url": {
+					"raw": "http://localhost:9200/library/_search",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9200",
+					"path": [
+						"library",
+						"_search"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "url path analyzer query",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n \"query\": {\n   \n   \"match_phrase\": {\n     \"url.token\": \"zulip\"\n   }\n  \n   }\n}"
+				},
+				"url": {
+					"raw": "http://localhost:9200/_search",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9200",
+					"path": [
+						"_search"
+					]
+				},
+				"description": "a demonstration of the github url path analyzer"
+			},
+			"response": []
+		},
+		{
+			"name": "sample data",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:9200/library/_search",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9200",
+					"path": [
+						"library",
+						"_search"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "regex query",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"query\": {\n        \"regexp\":{\n            \"author\": \"Cha*\"\n        }\n    }\n}"
+				},
+				"url": {
+					"raw": "http://localhost:9200/card_catalog/_search",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9200",
+					"path": [
+						"card_catalog",
+						"_search"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "author term search",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"query\" : {\n    \"match\": {\"author.text\": \"Arthur Conan\"}\n  \n  }\n\n}"
+				},
+				"url": {
+					"raw": "http://localhost:9200/library/_search",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9200",
+					"path": [
+						"library",
+						"_search"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
