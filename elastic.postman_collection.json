@@ -188,7 +188,7 @@
 					"response": []
 				},
 				{
-					"name": "description highlight",
+					"name": "description highlight with bool",
 					"request": {
 						"method": "POST",
 						"header": [
@@ -555,12 +555,13 @@
 								"github",
 								"_search"
 							]
-						}
+						},
+						"description": "will return a hit if the topics list contains AT LEAST ONE of the items in the list"
 					},
 					"response": []
 				},
 				{
-					"name": "all unique Topics/Languages",
+					"name": "Topics Terms-Set Query",
 					"request": {
 						"method": "POST",
 						"header": [
@@ -571,7 +572,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n   \"size\":0,\n   \"aggs\" : {\n      \"unique_topics\" : {\n      \t\"terms\": {\"field\":\"topics.keyword\",\"size\":20}\n      },\n      \"unique_lang\" : {\n      \t\"terms\": {\"field\":\"language.keyword\",\"size\":20}\n      }\n   \t\t\n   }\n  \n\n  \n}\n"
+							"raw": "{\n  \"query\" : {\n       \"terms_set\": {\n       \t   \"topics\" : {\n       \t   \t\"terms\": [\"testing\",\"java\"],\n       \t   \t\"minimum_should_match_script\":  {\n       \t   \t\t\"source\": \"params.num_terms\"\n       \t   \t}\n       \t   }\n       \t\n       }\n     \n    }\n  \n\n  \n}\n"
 						},
 						"url": {
 							"raw": "http://localhost:9200/github/_search",
@@ -584,7 +585,38 @@
 								"github",
 								"_search"
 							]
-						}
+						},
+						"description": "will return a hit if the topics list contains AT LEAST ONE of the items in the list"
+					},
+					"response": []
+				},
+				{
+					"name": "all unique Topics/Languages def both",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n     \"query\": {\n      \n      \"bool\": {\n        \"must_not\": {\n          \"match\": {\n            \"language.keyword\":\"\"\n          }\n        },\n        \"must\": {\n          \"exists\": {\n\t\t\t\"field\": \"topics.keyword\"\n\t\t    }\n        }\n        \n        \n      }\n      \n      \n    }, \"size\": 0,\n    \"aggregations\": {\n\t\"unique_topics\": {\n\t    \"terms\": {\n\t\t\"field\": \"topics.keyword\",\n\t\t\"size\": 20,\n\t\t\"min_doc_count\": 0,\n\t\t\"shard_min_doc_count\": 0,\n\t\t\"show_term_doc_count_error\": false,\n\t\t\"order\": [\n\t\t    {\n\t\t\t\"_count\": \"desc\"\n\t\t    }, \n\t\t    {\n\t\t\t\"_key\": \"asc\"\n\t\t    }\n\t\t]\n\t    }\n\t},\n\t\"unique_lang\": {\n\t    \"terms\": {\n\t\t\"field\": \"language.keyword\",\n\t\t\"size\": 20,\n\t\t\"min_doc_count\": 0,\n\t\t\"shard_min_doc_count\": 0,\n\t\t\"show_term_doc_count_error\": false,\n\t\t\"order\": [\n\t\t    {\n\t\t\t\"_count\": \"desc\"\n\t\t    }, \n\t\t    {\n\t\t\t\"_key\": \"asc\"\n\t\t    }\n\t\t]\n\t    }\n\t}\n    }\n}"
+						},
+						"url": {
+							"raw": "http://localhost:9200/github/_search",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9200",
+							"path": [
+								"github",
+								"_search"
+							]
+						},
+						"description": "this query performs the aggregation on items that have a language ne \"\" and non empty topics list."
 					},
 					"response": []
 				}

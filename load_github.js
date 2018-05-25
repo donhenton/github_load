@@ -24,6 +24,8 @@ async function mainLoad() {
       // Describe action
       bulkOps.push({index: {_index: index, _type: type}})
       let l = data[i]["_source"];
+      let simpleDate = l.created.toString().substring(0,l.created.length-1);
+      l['created'] = simpleDate;
       bulkOps.push(l);
 
       if (i > 0 && i % bulkLimit === 0) { // Do bulk insert after every bulkLimit

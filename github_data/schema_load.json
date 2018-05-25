@@ -5,7 +5,7 @@
 	},
 	"created": {
 	    "type": "date",
-	    "format": "date_time_no_millis"
+	    "format": "date_hour_minute_second"
 	},
 	"description": {
 	    "type": "text",
