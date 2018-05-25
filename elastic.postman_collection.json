@@ -619,6 +619,66 @@
 						"description": "this query performs the aggregation on items that have a language ne \"\" and non empty topics list."
 					},
 					"response": []
+				},
+				{
+					"name": "date histogram",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n       \"query\": {\n        \"range\" : {\n            \"created\" : {\n                \"gte\": \"01/01/2012\",\n                \"lt\": \"01/01/2013\",\n                \"format\": \"dd/MM/yyyy\"\n            }\n        }\n    },\n    \"size\": 0,\n    \n    \"aggregations\": {\n       \"projects_over_time\" : {\n            \"date_histogram\" : {\n                \"field\" : \"created\",\n                \"interval\" : \"month\",\n                \"format\" : \"yyyy-MM-dd\"\n            }\n        }\n    }\n}"
+						},
+						"url": {
+							"raw": "http://localhost:9200/github/_search",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9200",
+							"path": [
+								"github",
+								"_search"
+							]
+						},
+						"description": "this query performs the aggregation on items that have a language ne \"\" and non empty topics list."
+					},
+					"response": []
+				},
+				{
+					"name": "star histograms",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n       \"query\": {\n        \"match_all\":{}\n    },\n    \"size\": 0,\n    \n    \"aggregations\": {\n       \"stars_over_time\" : {\n            \"histogram\" : {\n                \"field\" : \"forks\",\n                \"interval\" : \"100\",\n                \"min_doc_count\" : 10 \n            }\n        }\n    }\n}"
+						},
+						"url": {
+							"raw": "http://localhost:9200/github/_search",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9200",
+							"path": [
+								"github",
+								"_search"
+							]
+						},
+						"description": "this query performs the aggregation on items that have a language ne \"\" and non empty topics list."
+					},
+					"response": []
 				}
 			]
 		}
